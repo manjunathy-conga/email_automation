@@ -1,0 +1,45 @@
+# config/config.yaml
+#
+# Secrets (smtp.username, smtp.password, ring URLs & credentials)
+# are injected at runtime via environment variables.
+# Values here are only used as fallbacks when env vars are absent.
+# ─────────────────────────────────────────────────────────────────
+
+smtp:
+  host: "smtp.office365.com"
+  port: 587
+  username: "manjunathy@conga.com"
+  password: ""
+  sender: "manjunathy@conga.com"
+
+dashboard:
+  # Bearer token for Grafana API calls (optional, for metrics extraction)
+  # Override via DASHBOARD_AUTH_TOKEN env var
+  auth_token: ""
+  screenshot_wait_seconds: 8   # seconds to wait for panels to render
+
+report:
+  output_dir: "outputs/reports"
+  lookback_hours: 24
+  # Cron used by the standalone scheduler (src/scheduler.py)
+  # Jenkins/GitLab use their own scheduling — see Jenkinsfile / .gitlab-ci.yml
+  schedule_cron: "0 7 * * *"
+
+environments:
+  - name: "Ring 3a"
+    # Override via RING_3A_URL / RING_3A_USER / RING_3A_PASS
+    url: ""
+    username: "ring3a"
+    password: ""
+
+  - name: "Ring 3-aws"
+    # Override via RING_3_AWS_URL / RING_3_AWS_USER / RING_3_AWS_PASS
+    url: ""
+    username: "ring3-aws"
+    password: ""
+
+  - name: "Ring 3b"
+    # Override via RING_3B_URL / RING_3B_USER / RING_3B_PASS
+    url: ""
+    username: "ring3b"
+    password: ""

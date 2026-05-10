@@ -1,0 +1,18 @@
+# docker-compose.yml
+# Local development / testing.
+# Secrets come from .env file (never committed to git).
+
+version: "3.8"
+
+services:
+  turbo-reports:
+    build: .
+    container_name: turbo_reports
+    env_file:
+      - .env                       # secrets loaded from .env
+    volumes:
+      - ./outputs:/app/outputs     # reports & logs persist on host
+    shm_size: 2gb                  # Chrome needs shared memory
+    # Override CMD to run a single tenant:
+    #   docker compose run turbo-reports python main.py --tenant ibm
+    command: python main.py
