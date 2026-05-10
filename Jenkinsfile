@@ -90,13 +90,14 @@ spec:
                                 set -x
 
                                 apt-get update
-                                apt-get install -y chromium chromium-driver
+                                apt-get install -y chromium chromium-driver wget curl unzip
 
                                 python3 --version
                                 pip3 --version
 
                                 pip3 install --upgrade pip
                                 pip3 install -r requirements.txt
+                                pip3 install sendgrid
                             '''
                         }
                     }
@@ -127,8 +128,25 @@ spec:
 
                                     sh """
                                         set -x
-                                        export \$(grep -v '^#' .env | xargs)
+
                                         export SENDGRID_API_KEY=${Sendgrid_Api_Key}
+
+                                        export RING_3A_URL=https://ring3a-admin-grafana.congacloud.com
+                                        export RING_3A_USER=ring3a
+                                        export RING_3A_PASS=ring3a@123
+
+                                        export RING_3_AWS_URL=https://ring3-aws-admin-grafana.congacloud.com
+                                        export RING_3_AWS_USER=ring3-aws
+                                        export RING_3_AWS_PASS=ring3-aws@123
+
+                                        export RING_3B_URL=https://ring3b-admin-grafana.congacloud.com
+                                        export RING_3B_USER=ring3b
+                                        export RING_3B_PASS=ring3b@123
+
+                                        export DASHBOARD_AUTH_TOKEN=
+
+                                        ln -sf /usr/bin/chromium /usr/bin/google-chrome || true
+
                                         ${cmd}
                                     """
                                 }
