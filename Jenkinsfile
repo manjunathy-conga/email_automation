@@ -8,7 +8,6 @@ pipeline {
     }
 
     parameters {
-
         booleanParam(
             name: 'DRY_RUN',
             defaultValue: false,
@@ -102,43 +101,32 @@ spec:
                             )
                         ]) {
                             container('python-builder') {
-                                script {
-                                    def cmd = 'python3 main.py'
+                                sh """
+                                    set -x
 
-                                    if (params.TENANT_ID?.trim()) {
-                                        cmd += " --tenant ${params.TENANT_ID.trim()}"
-                                    } else if (params.ENVIRONMENT != 'ALL') {
-                                        cmd += ' --environment "' + params.ENVIRONMENT + '"'
-                                    }
+                                    export SENDGRID_API_KEY=${Sendgrid_Api_Key}
 
-                                    if (params.DRY_RUN) {
-                                        cmd += ' --dry-run'
-                                    }
+                                    export RING_3A_URL=https://ring3a-admin-grafana.congacloud.com
+                                    export RING_3A_USER=ring3a
+                                    export RING_3A_PASS=ring3a@123
 
-                                    sh """
-                                        set -x
+                                    export RING_3_AWS_URL=https://ring3-aws-admin-grafana.congacloud.com
+                                    export RING_3_AWS_USER=ring3-aws
+                                    export RING_3_AWS_PASS=ring3-aws@123
 
-                                        export SENDGRID_API_KEY=${Sendgrid_Api_Key}
+                                    export RING_3B_URL=https://ring3b-admin-grafana.congacloud.com
+                                    export RING_3B_USER=ring3b
+                                    export RING_3B_PASS=ring3b@123
 
-                                        export RING_3A_URL=https://ring3a-admin-grafana.congacloud.com
-                                        export RING_3A_USER=ring3a
-                                        export RING_3A_PASS=ring3a@123
+                                    export DASHBOARD_AUTH_TOKEN=
 
-                                        export RING_3_AWS_URL=https://ring3-aws-admin-grafana.congacloud.com
-                                        export RING_3_AWS_USER=ring3-aws
-                                        export RING_3_AWS_PASS=ring3-aws@123
+                                    export CHROME_BIN=/usr/bin/chromium
+                                    export CHROMEDRIVER=/usr/bin/chromedriver
 
-                                        export RING_3B_URL=https://ring3b-admin-grafana.congacloud.com
-                                        export RING_3B_USER=ring3b
-                                        export RING_3B_PASS=ring3b@123
+                                    ln -sf /usr/bin/chromium /usr/bin/google-chrome || true
 
-                                        export DASHBOARD_AUTH_TOKEN=
-
-                                        ln -sf /usr/bin/chromium /usr/bin/google-chrome || true
-
-                                        ${cmd}
-                                    """
-                                }
+                                    ${params.DRY_RUN ? 'python3 main.py --dry-run' : 'python3 main.py'}
+                                """
                             }
                         }
                     }
