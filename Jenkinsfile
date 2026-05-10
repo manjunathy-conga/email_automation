@@ -40,7 +40,7 @@ kind: Pod
 spec:
   containers:
   - name: python-runner
-    image: python:3.11-slim
+    image: selenium/standalone-chrome:latest
     command:
     - cat
     tty: true
@@ -56,6 +56,7 @@ spec:
             }
 
             stages {
+
                 stage('Checkout') {
                     steps {
                         checkout scm
@@ -70,6 +71,7 @@ spec:
                                 python3 -m pip install -r requirements.txt
                                 cp .env.example .env
                             '''
+                        }
                     }
                 }
 
@@ -84,7 +86,7 @@ spec:
                         ]) {
                             container('python-runner') {
                                 script {
-                                    def cmd = 'python main.py'
+                                    def cmd = 'python3 main.py'
 
                                     if (params.TENANT_ID?.trim()) {
                                         cmd += " --tenant ${params.TENANT_ID.trim()}"
@@ -99,7 +101,6 @@ spec:
                                     sh """
                                         export \$(grep -v '^#' .env | xargs)
                                         export SENDGRID_API_KEY=${Sendgrid_Api_Key}
-
                                         ${cmd}
                                     """
                                 }
@@ -113,6 +114,7 @@ spec:
                         archiveArtifacts artifacts: 'outputs/**', allowEmptyArchive: true
                     }
                 }
+
             }
         }
     }
