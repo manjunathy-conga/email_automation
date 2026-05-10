@@ -33,24 +33,44 @@ pipeline {
                 kubernetes {
                     label 'turbo-email-automation'
                     cloud 'kubernetes-kaniko-v2'
-                    defaultContainer 'python-runner'
+                    defaultContainer 'jnlp'
                     yaml """
 apiVersion: v1
 kind: Pod
+metadata:
+  labels:
+    name: turbo-email-automation
 spec:
   containers:
-  - name: python-runner
-    image: selenium/standalone-chrome:latest
+  - name: ic-utility-builder
+    image: congacicd.azurecr.io/ic-utility-builder:1.1.1
+    imagePullPolicy: IfNotPresent
     command:
     - cat
     tty: true
-    resources:
-      requests:
-        memory: "2Gi"
-        cpu: "1000m"
-      limits:
-        memory: "4Gi"
-        cpu: "2000m"
+
+  - name: ic-kaniko-builder
+    image: congacicd.azurecr.io/ic-kaniko-builder:1.0.0
+    imagePullPolicy: IfNotPresent
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+      - name: docker-config
+        mountPath: /kaniko/.docker
+
+  volumes:
+  - name: docker-config
+    projected:
+      sources:
+      - secret:
+          name: devops-kaniko-secret
+          items:
+            - key: .dockerconfigjson
+              path: config.json
+
+  imagePullSecrets:
+  - name: devops-kaniko-secret
 """
                 }
             }
@@ -65,11 +85,18 @@ spec:
 
                 stage('Prepare Environment') {
                     steps {
-                        container('python-runner') {
+                        container('ic-utility-builder') {
                             sh '''
-                                python3 -m pip install --upgrade pip
-                                python3 -m pip install -r requirements.txt
-                                cp .env.example .env
+                                set -x
+
+                                pwd
+                                ls -la
+
+                                python3 --version
+                                pip3 --version
+
+                                pip3 install --upgrade pip
+                                pip3 install -r requirements.txt
                             '''
                         }
                     }
@@ -84,7 +111,7 @@ spec:
                                 passwordVariable: 'Sendgrid_Api_Key'
                             )
                         ]) {
-                            container('python-runner') {
+                            container('ic-utility-builder') {
                                 script {
                                     def cmd = 'python3 main.py'
 
@@ -99,6 +126,7 @@ spec:
                                     }
 
                                     sh """
+                                        set -x
                                         export \$(grep -v '^#' .env | xargs)
                                         export SENDGRID_API_KEY=${Sendgrid_Api_Key}
                                         ${cmd}
@@ -114,7 +142,6 @@ spec:
                         archiveArtifacts artifacts: 'outputs/**', allowEmptyArchive: true
                     }
                 }
-
             }
         }
     }
