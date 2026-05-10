@@ -4,7 +4,6 @@ pipeline {
     options {
         disableConcurrentBuilds()
         timeout(time: 90, unit: 'MINUTES')
-        buildDiscarder(logRotator(numToKeepStr: '20'))
         timestamps()
     }
 
@@ -26,10 +25,6 @@ pipeline {
             defaultValue: false,
             description: 'Skip email sending'
         )
-    }
-
-    environment {
-        SENDGRID_API_KEY = credentials('SENDGRID_API_KEY')
     }
 
     stages {
@@ -76,7 +71,6 @@ spec:
 
                                 pip install --upgrade pip
                                 pip install -r requirements.txt
-                                pip install python-dotenv
 
                                 cp .env.example .env
                             '''
@@ -86,26 +80,34 @@ spec:
 
                 stage('Run Automation') {
                     steps {
-                        container('python-runner') {
-                            script {
-                                def cmd = 'python main.py'
+                        withCredentials([
+                            usernamePassword(
+                                credentialsId: 'Sendgrid_Key',
+                                usernameVariable: 'userName',
+                                passwordVariable: 'Sendgrid_Api_Key'
+                            )
+                        ]) {
+                            container('python-runner') {
+                                script {
+                                    def cmd = 'python main.py'
 
-                                if (params.TENANT_ID?.trim()) {
-                                    cmd += " --tenant ${params.TENANT_ID.trim()}"
-                                } else if (params.ENVIRONMENT != 'ALL') {
-                                    cmd += ' --environment "' + params.ENVIRONMENT + '"'
+                                    if (params.TENANT_ID?.trim()) {
+                                        cmd += " --tenant ${params.TENANT_ID.trim()}"
+                                    } else if (params.ENVIRONMENT != 'ALL') {
+                                        cmd += ' --environment "' + params.ENVIRONMENT + '"'
+                                    }
+
+                                    if (params.DRY_RUN) {
+                                        cmd += ' --dry-run'
+                                    }
+
+                                    sh """
+                                        export \$(grep -v '^#' .env | xargs)
+                                        export SENDGRID_API_KEY=${Sendgrid_Api_Key}
+
+                                        ${cmd}
+                                    """
                                 }
-
-                                if (params.DRY_RUN) {
-                                    cmd += ' --dry-run'
-                                }
-
-                                sh """
-                                    export \$(grep -v '^#' .env | xargs)
-                                    export SENDGRID_API_KEY=${env.SENDGRID_API_KEY}
-
-                                    ${cmd}
-                                """
                             }
                         }
                     }
