@@ -12,7 +12,7 @@ pipeline {
         string(
             name: 'TENANT_ID',
             defaultValue: '',
-            description: 'Run a single tenant (example: ibm). Leave blank for all tenants.'
+            description: 'Run single tenant'
         )
 
         choice(
@@ -24,24 +24,12 @@ pipeline {
         booleanParam(
             name: 'DRY_RUN',
             defaultValue: false,
-            description: 'Generate reports only. Skip email.'
+            description: 'Skip email sending'
         )
     }
 
     environment {
         SENDGRID_API_KEY = credentials('SENDGRID_API_KEY')
-
-        RING_3A_URL     = credentials('RING_3A_URL')
-        RING_3A_USER    = credentials('RING_3A_USER')
-        RING_3A_PASS    = credentials('RING_3A_PASS')
-
-        RING_3_AWS_URL  = credentials('RING_3_AWS_URL')
-        RING_3_AWS_USER = credentials('RING_3_AWS_USER')
-        RING_3_AWS_PASS = credentials('RING_3_AWS_PASS')
-
-        RING_3B_URL     = credentials('RING_3B_URL')
-        RING_3B_USER    = credentials('RING_3B_USER')
-        RING_3B_PASS    = credentials('RING_3B_PASS')
     }
 
     stages {
@@ -54,9 +42,6 @@ pipeline {
                     yaml """
 apiVersion: v1
 kind: Pod
-metadata:
-  labels:
-    app: turbo-email-automation
 spec:
   containers:
   - name: python-runner
@@ -71,9 +56,6 @@ spec:
       limits:
         memory: "4Gi"
         cpu: "2000m"
-
-  imagePullSecrets:
-  - name: devops-kaniko-secret
 """
                 }
             }
@@ -85,21 +67,18 @@ spec:
                     }
                 }
 
-                stage('Install Dependencies') {
+                stage('Prepare Environment') {
                     steps {
                         container('python-runner') {
                             sh '''
-                                apt-get update -qq
-                                apt-get install -y \
-                                    chromium \
-                                    chromium-driver \
-                                    wget \
-                                    curl \
-                                    unzip \
-                                    ca-certificates
+                                apt-get update
+                                apt-get install -y chromium chromium-driver
 
                                 pip install --upgrade pip
                                 pip install -r requirements.txt
+                                pip install python-dotenv
+
+                                cp .env.example .env
                             '''
                         }
                     }
@@ -121,26 +100,12 @@ spec:
                                     cmd += ' --dry-run'
                                 }
 
-                                withEnv([
-                                    "SENDGRID_API_KEY=${env.SENDGRID_API_KEY}",
+                                sh """
+                                    export \$(grep -v '^#' .env | xargs)
+                                    export SENDGRID_API_KEY=${env.SENDGRID_API_KEY}
 
-                                    "RING_3A_URL=${env.RING_3A_URL}",
-                                    "RING_3A_USER=${env.RING_3A_USER}",
-                                    "RING_3A_PASS=${env.RING_3A_PASS}",
-
-                                    "RING_3_AWS_URL=${env.RING_3_AWS_URL}",
-                                    "RING_3_AWS_USER=${env.RING_3_AWS_USER}",
-                                    "RING_3_AWS_PASS=${env.RING_3_AWS_PASS}",
-
-                                    "RING_3B_URL=${env.RING_3B_URL}",
-                                    "RING_3B_USER=${env.RING_3B_USER}",
-                                    "RING_3B_PASS=${env.RING_3B_PASS}",
-
-                                    "CHROMIUM_PATH=/usr/bin/chromium",
-                                    "CHROMEDRIVER_PATH=/usr/bin/chromedriver"
-                                ]) {
-                                    sh cmd
-                                }
+                                    ${cmd}
+                                """
                             }
                         }
                     }
@@ -148,42 +113,10 @@ spec:
 
                 stage('Archive Reports') {
                     steps {
-                        archiveArtifacts(
-                            artifacts: 'outputs/reports/**',
-                            allowEmptyArchive: true
-                        )
-
-                        archiveArtifacts(
-                            artifacts: 'outputs/*.log',
-                            allowEmptyArchive: true
-                        )
+                        archiveArtifacts artifacts: 'outputs/**', allowEmptyArchive: true
                     }
                 }
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Turbo email automation completed successfully'
-        }
-
-        failure {
-            mail(
-                to: 'manjunathy@conga.com',
-                subject: "Turbo Email Automation FAILED - ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: """
-Job failed.
-
-Job Name: ${env.JOB_NAME}
-Build Number: ${env.BUILD_NUMBER}
-Build URL: ${env.BUILD_URL}
-"""
-            )
-        }
-
-        always {
-            cleanWs()
         }
     }
 }
