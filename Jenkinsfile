@@ -8,17 +8,6 @@ pipeline {
     }
 
     parameters {
-        string(
-            name: 'TENANT_ID',
-            defaultValue: '',
-            description: 'Run single tenant'
-        )
-
-        choice(
-            name: 'ENVIRONMENT',
-            choices: ['ALL', 'Ring 3a', 'Ring 3-aws', 'Ring 3b'],
-            description: 'Environment filter'
-        )
 
         booleanParam(
             name: 'DRY_RUN',
