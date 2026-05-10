@@ -33,7 +33,7 @@ pipeline {
                 kubernetes {
                     label 'turbo-email-automation'
                     cloud 'kubernetes-kaniko-v2'
-                    defaultContainer 'jnlp'
+                    defaultContainer 'python-builder'
                     yaml """
 apiVersion: v1
 kind: Pod
@@ -42,8 +42,8 @@ metadata:
     name: turbo-email-automation
 spec:
   containers:
-  - name: ic-utility-builder
-    image: congacicd.azurecr.io/ic-utility-builder:1.1.1
+  - name: python-builder
+    image: python:3.11
     imagePullPolicy: IfNotPresent
     command:
     - cat
@@ -85,12 +85,12 @@ spec:
 
                 stage('Prepare Environment') {
                     steps {
-                        container('ic-utility-builder') {
+                        container('python-builder') {
                             sh '''
                                 set -x
 
-                                pwd
-                                ls -la
+                                apt-get update
+                                apt-get install -y chromium chromium-driver
 
                                 python3 --version
                                 pip3 --version
@@ -111,7 +111,7 @@ spec:
                                 passwordVariable: 'Sendgrid_Api_Key'
                             )
                         ]) {
-                            container('ic-utility-builder') {
+                            container('python-builder') {
                                 script {
                                     def cmd = 'python3 main.py'
 
