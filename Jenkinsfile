@@ -109,16 +109,16 @@ spec:
                     steps {
                         container('python-runner') {
                             script {
-                                def cmd = "python main.py"
+                                def cmd = 'python main.py'
 
                                 if (params.TENANT_ID?.trim()) {
                                     cmd += " --tenant ${params.TENANT_ID.trim()}"
                                 } else if (params.ENVIRONMENT != 'ALL') {
-                                    cmd += " --environment \\"${params.ENVIRONMENT}\\""
+                                    cmd += ' --environment "' + params.ENVIRONMENT + '"'
                                 }
 
                                 if (params.DRY_RUN) {
-                                    cmd += " --dry-run"
+                                    cmd += ' --dry-run'
                                 }
 
                                 withEnv([
@@ -148,8 +148,15 @@ spec:
 
                 stage('Archive Reports') {
                     steps {
-                        archiveArtifacts artifacts: 'outputs/reports/**', allowEmptyArchive: true
-                        archiveArtifacts artifacts: 'outputs/*.log', allowEmptyArchive: true
+                        archiveArtifacts(
+                            artifacts: 'outputs/reports/**',
+                            allowEmptyArchive: true
+                        )
+
+                        archiveArtifacts(
+                            artifacts: 'outputs/*.log',
+                            allowEmptyArchive: true
+                        )
                     }
                 }
             }
