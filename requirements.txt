@@ -6,3 +6,10 @@ APScheduler==3.10.4
 python-dotenv==1.0.1
 webdriver-manager==4.0.1
 msal==1.28.0
+sendgrid
+python-dotenv
+selenium
+webdriver-manager
+requests
+pyyaml
+jinja2
