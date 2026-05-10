@@ -1,19 +1,19 @@
 tenants:
 
-  # ── Ring 3a ───────────────────────────────────────────────
   - id: "ibm"
     name: "IBM"
     environment: "Ring 3a"
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3a?orgId=1&from=now-24h&to=now"
     recipients:
+      - "anaghap@conga.com"
       - "manjunathy@conga.com"
 
-  # ── Ring 3-aws ────────────────────────────────────────────
   - id: "roche"
     name: "Roche"
     environment: "Ring 3-aws"
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3-aws?orgId=1&from=now-24h&to=now"
     recipients:
+      - "anaghap@conga.com"
       - "manjunathy@conga.com"
 
   - id: "eni"
@@ -21,6 +21,7 @@ tenants:
     environment: "Ring 3-aws"
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3-aws?orgId=1&from=now-24h&to=now"
     recipients:
+      - "anaghap@conga.com"
       - "manjunathy@conga.com"
 
   - id: "vaisala"
@@ -28,6 +29,7 @@ tenants:
     environment: "Ring 3-aws"
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3-aws?orgId=1&from=now-24h&to=now"
     recipients:
+      - "anaghap@conga.com"
       - "manjunathy@conga.com"
 
   # # ── Ring 3b ───────────────────────────────────────────────
