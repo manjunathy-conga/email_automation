@@ -1,5 +1,5 @@
 tenants:
-
+  # ── Ring 3a ───────────────────────────────────────────────
   - id: "ibm"
     name: "IBM"
     environment: "Ring 3a"
@@ -11,7 +11,7 @@ tenants:
   - id: "roche"
     name: "Roche"
     environment: "Ring 3-aws"
-    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3-aws?orgId=1&from=now-24h&to=now"
+    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3-aws?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d09000009imzmeay"
     recipients:
       - "anaghap@conga.com"
       - "manjunathy@conga.com"
@@ -19,7 +19,7 @@ tenants:
   - id: "eni"
     name: "ENI"
     environment: "Ring 3-aws"
-    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3-aws?orgId=1&from=now-24h&to=now"
+    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3-aws?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d3x00000470zvuai"
     recipients:
       - "anaghap@conga.com"
       - "manjunathy@conga.com"
@@ -27,64 +27,81 @@ tenants:
   - id: "vaisala"
     name: "Vaisala"
     environment: "Ring 3-aws"
-    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3-aws?orgId=1&from=now-24h&to=now"
+    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3-aws?orgId=1&from=now-24h&to=now&var-Tenant_Id=00dd0000000lzdomae"
     recipients:
       - "anaghap@conga.com"
       - "manjunathy@conga.com"
 
-  # # ── Ring 3b ───────────────────────────────────────────────
-  # - id: "nokia"
-  #   name: "Nokia"
-  #   environment: "Ring 3b"
-  #   dashboard_path: "/d/REPLACE_NOKIA_UID/pricing-main-dashboard-ring3b?orgId=1&from=now-24h&to=now"
-  #   recipients:
-  #     - "manjunathy@conga.com"
+  # ── Ring 3b ───────────────────────────────────────────────
+  - id: "nokia"
+    name: "Nokia"
+    environment: "Ring 3b"
+    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d58000000t8dkeai"
+    recipients:
+      - "anaghap@conga.com"
+      - "manjunathy@conga.com"
 
-  # - id: "philips"
-  #   name: "Philips"
-  #   environment: "Ring 3b"
-  #   dashboard_path: "/d/REPLACE_PHILIPS_UID/pricing-main-dashboard-ring3b?orgId=1&from=now-24h&to=now"
-  #   recipients:
-  #     - "manjunathy@conga.com"
+  - id: "philips"
+    name: "Philips"
+    environment: "Ring 3b"
+    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d36000001fqx3eag"
+    recipients:
+      - "anaghap@conga.com"
+      - "manjunathy@conga.com"
 
-  # - id: "twilio"
-  #   name: "Twilio"
-  #   environment: "Ring 3b"
-  #   dashboard_path: "/d/REPLACE_TWILIO_UID/pricing-main-dashboard-ring3b?orgId=1&from=now-24h&to=now"
-  #   recipients:
-  #     - "manjunathy@conga.com"
+  - id: "twilio"
+    name: "Twilio"
+    environment: "Ring 3b"
+    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d400000008njqeai"
+    recipients:
+      - "anaghap@conga.com"
+      - "manjunathy@conga.com"
 
-  # - id: "hitachi"
-  #   name: "Hitachi"
-  #   environment: "Ring 3b"
-  #   dashboard_path: "/d/REPLACE_HITACHI_UID/pricing-main-dashboard-ring3b?orgId=1&from=now-24h&to=now"
-  #   recipients:
-  #     - "manjunathy@conga.com"
+  - id: "hitachi"
+    name: "Hitachi"
+    environment: "Ring 3b"
+    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d2p000000okr7eak"
+    recipients:
+      - "anaghap@conga.com"
+      - "manjunathy@conga.com"
 
-  # - id: "tr"
-  #   name: "TR"
-  #   environment: "Ring 3b"
-  #   dashboard_path: "/d/REPLACE_TR_UID/pricing-main-dashboard-ring3b?orgId=1&from=now-24h&to=now"
-  #   recipients:
-  #     - "manjunathy@conga.com"
+  - id: "tr"
+    name: "TR"
+    environment: "Ring 3b"
+    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d30000000plslea2"
+    recipients:
+      - "anaghap@conga.com"
+      - "manjunathy@conga.com"
 
-  # - id: "itron-prod"
-  #   name: "Itron Prod"
-  #   environment: "Ring 3b"
-  #   dashboard_path: "/d/REPLACE_ITRON_UID/pricing-main-dashboard-ring3b?orgId=1&from=now-24h&to=now"
-  #   recipients:
-  #     - "manjunathy@conga.com"
+  - id: "itron-prod"
+    name: "Itron Prod"
+    environment: "Ring 3b"
+    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d200000000cubeau"
+    recipients:
+      - "anaghap@conga.com"
+      - "manjunathy@conga.com"
 
-  # - id: "gehc"
-  #   name: "GEHC"
-  #   environment: "Ring 3b"
-  #   dashboard_path: "/d/REPLACE_GEHC_UID/pricing-main-dashboard-ring3b?orgId=1&from=now-24h&to=now"
-  #   recipients:
-  #     - "manjunathy@conga.com"
+  - id: "gehc"
+    name: "GEHC"
+    environment: "Ring 3b"
+    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d30000001f94oeas"
+    recipients:
+      - "anaghap@conga.com"
+      - "manjunathy@conga.com"
 
+<<<<<<< HEAD
   # - id: "bsci"
   #   name: "BSCI"
   #   environment: "Ring 3b"
   #   dashboard_path: "/d/REPLACE_BSCI_UID/pricing-main-dashboard-ring3b?orgId=1&from=now-24h&to=now"
   #   recipients:
   #     - "manjunathy@conga.com"
+=======
+  - id: "bsci"
+    name: "BSCI"
+    environment: "Ring 3b"
+    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00do0000000blb4eam"
+    recipients:
+      - "anaghap@conga.com"
+      - "manjunathy@conga.com"
+>>>>>>> b7189f4 (Added all tenants)
