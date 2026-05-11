@@ -89,14 +89,6 @@ tenants:
       - "anaghap@conga.com"
       - "manjunathy@conga.com"
 
-<<<<<<< HEAD
-  # - id: "bsci"
-  #   name: "BSCI"
-  #   environment: "Ring 3b"
-  #   dashboard_path: "/d/REPLACE_BSCI_UID/pricing-main-dashboard-ring3b?orgId=1&from=now-24h&to=now"
-  #   recipients:
-  #     - "manjunathy@conga.com"
-=======
   - id: "bsci"
     name: "BSCI"
     environment: "Ring 3b"
@@ -104,4 +96,3 @@ tenants:
     recipients:
       - "anaghap@conga.com"
       - "manjunathy@conga.com"
->>>>>>> b7189f4 (Added all tenants)
