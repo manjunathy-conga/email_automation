@@ -6,6 +6,7 @@ tenants:
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3a?orgId=1&from=now-24h&to=now"
     recipients:
       - "anaghap@conga.com"
+      - "kvaishampayan@conga.com"
       - "manjunathy@conga.com"
 
   - id: "roche"
@@ -14,6 +15,7 @@ tenants:
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3-aws?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d09000009imzmeay"
     recipients:
       - "anaghap@conga.com"
+      - "kvaishampayan@conga.com"
       - "manjunathy@conga.com"
 
   - id: "eni"
@@ -22,6 +24,7 @@ tenants:
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3-aws?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d3x00000470zvuai"
     recipients:
       - "anaghap@conga.com"
+      - "kvaishampayan@conga.com"
       - "manjunathy@conga.com"
 
   - id: "vaisala"
@@ -30,6 +33,7 @@ tenants:
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3-aws?orgId=1&from=now-24h&to=now&var-Tenant_Id=00dd0000000lzdomae"
     recipients:
       - "anaghap@conga.com"
+      - "kvaishampayan@conga.com"
       - "manjunathy@conga.com"
 
   # ── Ring 3b ───────────────────────────────────────────────
@@ -39,6 +43,7 @@ tenants:
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d58000000t8dkeai"
     recipients:
       - "anaghap@conga.com"
+      - "kvaishampayan@conga.com"
       - "manjunathy@conga.com"
 
   - id: "philips"
@@ -47,6 +52,7 @@ tenants:
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d36000001fqx3eag"
     recipients:
       - "anaghap@conga.com"
+      - "kvaishampayan@conga.com"
       - "manjunathy@conga.com"
 
   - id: "twilio"
@@ -55,6 +61,7 @@ tenants:
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d400000008njqeai"
     recipients:
       - "anaghap@conga.com"
+      - "kvaishampayan@conga.com"
       - "manjunathy@conga.com"
 
   - id: "hitachi"
@@ -63,6 +70,7 @@ tenants:
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d2p000000okr7eak"
     recipients:
       - "anaghap@conga.com"
+      - "kvaishampayan@conga.com"
       - "manjunathy@conga.com"
 
   - id: "tr"
@@ -71,6 +79,7 @@ tenants:
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d30000000plslea2"
     recipients:
       - "anaghap@conga.com"
+      - "kvaishampayan@conga.com"
       - "manjunathy@conga.com"
 
   - id: "itron-prod"
@@ -79,6 +88,7 @@ tenants:
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d200000000cubeau"
     recipients:
       - "anaghap@conga.com"
+      - "kvaishampayan@conga.com"
       - "manjunathy@conga.com"
 
   - id: "gehc"
@@ -87,6 +97,7 @@ tenants:
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d30000001f94oeas"
     recipients:
       - "anaghap@conga.com"
+      - "kvaishampayan@conga.com"
       - "manjunathy@conga.com"
 
   - id: "bsci"
@@ -95,4 +106,5 @@ tenants:
     dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00do0000000blb4eam"
     recipients:
       - "anaghap@conga.com"
+      - "kvaishampayan@conga.com"
       - "manjunathy@conga.com"
