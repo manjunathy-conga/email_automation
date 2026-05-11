@@ -7,6 +7,10 @@ pipeline {
         timestamps()
     }
 
+    triggers {
+        cron('TZ=Asia/Kolkata\n30 16 * * 1-5')
+    }
+
     parameters {
         booleanParam(
             name: 'DRY_RUN',
