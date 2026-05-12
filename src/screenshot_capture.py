@@ -21,13 +21,17 @@ class DashboardScreenshotCapture:
 
     def _get_driver(self) -> webdriver.Chrome:
         options = Options()
+
         options.add_argument("--headless=new")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--disable-gpu")
 
-        # viewport similar to your screenshot
+        # viewport similar to desired screenshot
         options.add_argument("--window-size=1728,768")
+
+        # browser-level zoom out (better than CSS zoom)
+        options.add_argument("--force-device-scale-factor=0.8")
 
         options.binary_location = "/usr/bin/chromium"
 
@@ -43,6 +47,7 @@ class DashboardScreenshotCapture:
                     "username": env["username"],
                     "password": env["password"]
                 }
+
         raise ValueError(f"Environment '{environment}' not found.")
 
     def _login_grafana(self, driver, url, username, password):
@@ -50,6 +55,7 @@ class DashboardScreenshotCapture:
         logger.info("Logging into Grafana: %s", login_url)
 
         driver.get(login_url)
+
         wait = WebDriverWait(driver, 20)
 
         user_input = wait.until(
@@ -76,6 +82,7 @@ class DashboardScreenshotCapture:
         submit_btn.click()
 
         wait.until(EC.url_changes(login_url))
+
         logger.info("Grafana login successful for URL: %s", url)
 
         time.sleep(2)
@@ -107,11 +114,6 @@ class DashboardScreenshotCapture:
 
             time.sleep(self.wait_seconds)
 
-            # zoom out so dashboard fits exactly like desired screenshot
-            driver.execute_script("document.body.style.zoom='85%'")
-
-            time.sleep(3)
-
             os.makedirs(self.output_dir, exist_ok=True)
 
             env_tag = tenant["environment"].replace(" ", "_")
@@ -120,7 +122,7 @@ class DashboardScreenshotCapture:
                 f"{tenant['id']}_{env_tag}_dashboard.png"
             )
 
-            # viewport-only screenshot (NOT full page)
+            # viewport-only screenshot
             driver.save_screenshot(screenshot_path)
 
             logger.info("Screenshot saved: %s", screenshot_path)
