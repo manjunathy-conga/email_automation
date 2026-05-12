@@ -27,11 +27,8 @@ class DashboardScreenshotCapture:
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--disable-gpu")
 
-        # viewport similar to desired screenshot
-        options.add_argument("--window-size=1728,768")
-
-        # browser-level zoom out (better than CSS zoom)
-        options.add_argument("--force-device-scale-factor=0.8")
+        # shorter viewport so mainly graph area is captured
+        options.add_argument("--window-size=1920,620")
 
         options.binary_location = "/usr/bin/chromium"
 
@@ -113,6 +110,10 @@ class DashboardScreenshotCapture:
                 logger.warning("Panels not detected, using fallback wait.")
 
             time.sleep(self.wait_seconds)
+
+            # slight zoom so graph fits cleanly
+            driver.execute_script("document.body.style.zoom='95%'")
+            time.sleep(2)
 
             os.makedirs(self.output_dir, exist_ok=True)
 
