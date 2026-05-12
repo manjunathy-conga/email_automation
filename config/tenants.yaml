@@ -49,7 +49,7 @@ tenants:
   - id: "philips"
     name: "Philips"
     environment: "Ring 3b"
-    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00d36000001fqx3eag"
+    dashboard_path: "/d/ring3a_uid_11/pricing-main-dashboard-11-0-ring3b?orgId=1&from=now-24h&to=now&var-Tenant_Id=00dd0000000drjeeaa"
     recipients:
       - "anaghap@conga.com"
       - "kvaishampayan@conga.com"
