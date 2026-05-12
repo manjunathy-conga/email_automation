@@ -8,7 +8,7 @@ pipeline {
     }
 
     triggers {
-        cron('TZ=Asia/Kolkata\n30 16 * * 1-5')
+        cron('TZ=Asia/Kolkata\n30 15 * * 1-5')
     }
 
     parameters {
