@@ -28,7 +28,7 @@ class DashboardScreenshotCapture:
         options.add_argument("--disable-gpu")
 
         # viewport similar to desired screenshot
-        options.add_argument("--window-size=1728,768")
+        options.add_argument("--window-size=1728,760")
 
         # browser-level zoom out (better than CSS zoom)
         options.add_argument("--force-device-scale-factor=0.8")
