@@ -3,7 +3,7 @@ tenants:
   - id: "ibm"
     name: "IBM"
     environment: "Ring 3a"
-    dashboard_path: "/d/ring3a_uid_11_email/pricing-main-dashboard-11-0-ring3a-email?orgId=1&var-Tenant_Id=00d2e000000nwkquam"
+    dashboard_path: "/d/ring3a_uid_11_email/pricing-main-dashboard-11-0-ring_3a?orgId=1&var-Tenant_Id=00d2e000000nwkquam"
     recipients:
       - "anaghap@conga.com"
       - "kvaishampayan@conga.com"
